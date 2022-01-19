@@ -15,7 +15,7 @@ app.use("/api", router);
 db.sequelize.sync(
   Role.findOne({ where: { id: 1 } }).then((role) => {
     if (!role) {
-      Role.create({ title: "USER" });
+      Role.create({ id: 1, title: "USER" });
     }
   })
 );
