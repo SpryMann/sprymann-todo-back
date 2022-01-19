@@ -11,10 +11,12 @@ const port = process.env.PORT || 5000;
 app.use(express.json());
 app.use(
   cors({
-    origin: "https://sprymann-todo-application-frnt.herokuapp.com/",
+    methods: "GET, POST, PUT, DELETE, OPTIONS",
+    origin: "https://sprymann-todo-application-frnt.herokuapp.com",
     optionsSuccessStatus: 200,
   })
 );
+app.options("*", cors());
 app.use("/api", router);
 
 db.sequelize.sync(
