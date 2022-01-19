@@ -3,6 +3,7 @@ const User = db.user;
 const Role = db.role;
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const secretConfig = require("./../config/secret.config");
 
 class AuthController {
   async signUp(req, res) {
@@ -28,7 +29,7 @@ class AuthController {
       const role = await Role.findOne({ where: { id: user.roleId } });
       const token = jwt.sign(
         { id: user.id, role: role.title },
-        process.env.SECRET_KEY,
+        secretConfig.secret,
         { expiresIn: "24h" }
       );
       return res.status(200).json({
