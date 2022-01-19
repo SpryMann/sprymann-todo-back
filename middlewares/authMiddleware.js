@@ -2,6 +2,7 @@ const db = require("./../models");
 const User = db.user;
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const secretConfig = require("./../config/secret.config");
 
 const checkNotExistsUser = async (req, res, next) => {
   const { username } = req.body;
@@ -53,7 +54,7 @@ const verifyToken = (req, res, next) => {
     });
   }
 
-  jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
+  jwt.verify(token, secretConfig.secret, (err, decoded) => {
     if (err) {
       return res.status(401).json({
         message: "Не авторизован",
